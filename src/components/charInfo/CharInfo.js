@@ -52,7 +52,7 @@ class CharInfo extends Component {
     onError = () => {
         this.setState({ loading: false, error: true });
     };
-
+  
     render() {
         const { char, loading, error } = this.state;
 
