@@ -35,7 +35,6 @@ const useMarvelService = () => {
   }
 
 
-
   const _transformCharacter = (char) => {
     return {
       id: char.id,
@@ -48,7 +47,6 @@ const useMarvelService = () => {
       comics: char.comics.items
     };
   }
-
 
   const _transformComics = (comics) => {
     return {
