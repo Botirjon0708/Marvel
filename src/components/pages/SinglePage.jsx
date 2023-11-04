@@ -31,12 +31,14 @@ const SinglePage = ({ Component, dataType }) => {
         getComic(id)
           .then(onDataLoaded)
           .then(() => setProcess("confirmed"));
-        break;
+        break
       case "character":
         getCharacter(id)
           .then(onDataLoaded)
           .then(() => setProcess("confirmed"));
-        
+        break
+      default:
+        throw new Error("Unexpected process state");
     }
   };
 

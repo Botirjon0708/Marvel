@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef , useMemo} from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types'
 import Spinner from '../spinner/Spinner';
@@ -13,22 +13,16 @@ const setContent = (process, Component, newItemLoading) => {
   switch (process) {
     case "waiting":
       return <Spinner />;
-      break;
     case "loading":
       return newItemLoading ? <Component /> : <Spinner />;
-      break;
     case "confirmed":
       return <Component />;
-      break;
     case "error":
       return <ErrorMessage />;
     default:
       throw new Error("Unexpected process state");
   }
 };
-
-
-
 
 
 
@@ -73,7 +67,7 @@ const CharList = (props) => {
     itemsRef.current[id].focus();
   }
 
-  function renderItems(arr) {
+  const renderItems = (arr) => {
     const items = arr.map((item, i) => {
       let imgStyle = { objectFit: "cover" };
       if (
@@ -116,11 +110,14 @@ const CharList = (props) => {
      </ul>);
   }
 
+  const elements = useMemo(() => {
+    return setContent(process, () => renderItems(charList), newItemLoading);
+  },[process])
 
     return (
       <div className="char__list">
      
- {setContent(process, () => renderItems(charList), newItemLoading)}
+ {elements}
         <button
           className="button button__main button__long"
           disabled={newItemLoading}
